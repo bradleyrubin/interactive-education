@@ -95,8 +95,8 @@ $('#submit-video').click(function() {
 	// create a div for a new chapter
 	var ytLink = $('#youtube-link').val();
 	// $('#work-area').append('<div class="chapter"><iframe width="600" height="400" src="' + ytLink + '"></div>');
-
-	addVideo(storyboard,ytLink);
+	var ytID = ytLink.match(/\?v=([^&]*)/)[1];
+	addVideo(storyboard,ytID);
 	storeStoryboard(storyboard);
 });
 
