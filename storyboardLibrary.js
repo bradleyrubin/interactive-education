@@ -66,6 +66,8 @@ function storeStoryboard(storyboard) {
 	var retrievedObject = localStorage.getItem('gameStorage');
 	var parsedObject = JSON.parse(retrievedObject);
 
+	debugger;
+
 	updateDisplay(storyboard);
 
 }

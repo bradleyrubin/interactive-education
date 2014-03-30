@@ -8,16 +8,12 @@
   <script src="storyboardLibrary.js"></script>
   <script>
   var storyboard = loadStoryboard();
-  var videoLink = getVideoFromStoryboard(storyboard,0);
+  var videoLink =  'tmNXKqeUtJM';//getVideoFromStoryboard(storyboard,0);
 
   var question = getQuestionFromStoryboard(storyboard,0);
   var questionText = getQuestionTextFromQuestion(question);
 
   var answers = getAnswersFromQuestion(question);
-  var answer1 = getAnswerTextFromAnswer(answers[0]);
-  var answer2 = getAnswerTextFromAnswer(answers[1]);
-  var answer3 = getAnswerTextFromAnswer(answers[2]);
-  var answer4 = getAnswerTextFromAnswer(answers[3]);
 
   </script>
 
@@ -86,6 +82,22 @@
 
 <div id="ytplayer"></div>
 
+
+
+<div id="dialog-form" title="Create new user">
+  <p class="validateTips">"questionText"</p>
+
+  <form>
+  <div id="radio">
+    <input type="radio" id="radio1" name="radio1" ><label for="radio1">Choice 1</label>
+    <input type="radio" id="radio2" name="radio2" ><label for="radio2">Choice 2</label>
+    <input type="radio" id="radio3" name="radio3" ><label for="radio3">Choice 3</label>
+    <input type="radio" id="radio4" name="radio4" ><label for="radio4">Choice 4</label>
+  </div>
+</form>
+</div>
+<button id="create-user">Create new user</button>
+
 <script>
   // Load the IFrame Player API code asynchronously.
   var tag = document.createElement('script');
@@ -100,17 +112,17 @@
     player = new YT.Player('ytplayer', {
       height: '390',
       width: '640',
-      videoId: getVideoFromStoryboard(storyboard,0),
+      videoId: 'tmNXKqeUtJM',//getVideoFromStoryboard(storyboard,0),
     });
   }
 
   var currentValue = 0;
   function handleClick(myRadio) {
     //alert('Old value: ' + currentValue);
-    //alert('New value: ' + myRadio);
+    alert('New value: ' + myRadio);
     currentValue = myRadio;
     $( this ).dialog( "close" );
-        $( this ).dialog( "close" );
+    $( this ).dialog( "close" );
 
 }
 
@@ -118,30 +130,48 @@
 
 </script>
 
-<div id="dialog-form" title="Create new user">
-  <p class="validateTips">"questionText"</p>
-
-  <form>
-  <div id="radio">
-    <input type="radio" id="radio1" name="radio1" onchange="handleClick(0);"><label for="radio1">Choice 1</label>
-    <input type="radio" id="radio2" name="radio2" onchange="handleClick(1);"><label for="radio2">Choice 2</label>
-    <input type="radio" id="radio3" name="radio3" onchange="handleClick(2);"><label for="radio3">Choice 3</label>
-    <input type="radio" id="radio4" name="radio4" onchange="handleClick(3);"><label for="radio4">Choice 4</label>
-  </div>
-</form>
-</div>
-<button id="create-user">Create new user</button>
-
-
 
 <script>
-$(".validateTips").html(questionText);
 
-$("label[for='radio1']").html(answer1);
-$("label[for='radio2']").html(answer2);
-$("label[for='radio3']").html(answer3);
-$("label[for='radio4']").html(answer4);
+$(function () {
+  $(".validateTips").html(questionText);
 
+  $("#radio label").each(function (i) {
+    if(typeof answers === "array" || typeof answers === "object") {
+      var answer = getAnswerTextFromAnswer(answers[i]);
+      $(this).html(answer);
+    }
+  });
+
+  $("#radio input[type=radio]").on("change", function () {
+    
+    $( "#dialog-form" ).dialog( "close" );
+  });
+
+});
+
+  
+
+var params = {
+    allowScriptAccess: "always"
+};
+var atts = {
+    id: "myytplayer"
+};
+
+
+onYouTubePlayerReady = function (playerId) {
+    alert("everything is awesome!");
+    ytplayer = document.getElementById("myytplayer");
+    ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
+};
+
+onPlayerStateChange = function (state) {
+  alert("oy chips ahoy");
+    if (state === 0) {
+        alert("It is ended");
+    }
+}
 
 </script>
  
