@@ -14,7 +14,7 @@ function addChapter(storyboard) {
 	var numChapters = storyboard.chapters.length;
 	storyboard.chapters[numChapters] = chapter;
 
-	updateDisplay(storyboard);
+	// updateDisplay(storyboard);
 
 }
 
@@ -27,7 +27,6 @@ function updateDisplay(storyboard) {
 function createQuestion(storyboard,questionText) {
 	question = new Object();
 	question.text = questionText;
-	question.text = 'Question Text';
 	question.answers = new Array();
 	updateDisplay(storyboard);
 	return question;
@@ -42,8 +41,7 @@ function addQuestion(storyboard,question) {
 function addAnswerToQuestion(question,aText,link) {
 	var answer = {};
 	answer.text = aText;
-	answer.text = 'Answer Text';
-	answer.link = 'Answer Link';
+	answer.link = link;
 
 	if (question.answers == null) {
 		question.answers = new Array();
@@ -57,8 +55,7 @@ function addAnswerToQuestion(question,aText,link) {
 function addVideo(storyboard,videoLink) {
 
 	var numChapters = storyboard.chapters.length;
-	storyboard.chapters[numChapters-1].video = videoLink;
-	storyboard.chapters[numChapters-1].videoLink = 'Video Link';
+	storyboard.chapters[numChapters-1].videoLink = videoLink;
 	updateDisplay(storyboard);
 }
 

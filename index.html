@@ -5,7 +5,12 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 <script src="http://code.jquery.com/jquery-2.1.0.js"></script>
 <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script src="storyboardLibrary.js"></script>
 <script>
+var storyboard = initialize();
+
+addChapter(storyboard);
+
 $(function() {
 	$('#add-video').draggable({
 		scope: "left",
@@ -44,19 +49,22 @@ $(function() {
 		},
 		drop: function(event, ui){
 			$( this ).removeClass("drag-over");
-			$( this ).append('<div id="question-setup"><h3>Format your question below</h3><form>Question: <input type="text" name="question" /><br>Choice 1: <input type="text" name="choice1" /><br>Choice 2: <input type="text" name="choice2" /><br>Choice 3: <input type="text" name="choice3" /><br>Choice 4: <input type="text" name="choice4" /><br><button type="button" id="submit-question">Add Question</button></form></div>');
+			// $( this ).append('<div id="question-setup"><h3>Format your question below</h3><form>Question: <input type="text" name="question" /><br>Choice 1: <input type="text" name="choice1" /><br>Choice 2: <input type="text" name="choice2" /><br>Choice 3: <input type="text" name="choice3" /><br>Choice 4: <input type="text" name="choice4" /><br><button type="button" id="submit-question">Add Question</button></form></div>');
+			$( "#question-setup" ).show();
 		}
 	});
-
 });
 </script>
 </head>
 <body>
+	<div id="TestName"> </div>
+
 <div id="storyboard">
 	<div id="work-area">
 		<div id="left">
 		</div>
 		<div id="right">
+			<div id="question-setup" display="none"><h3>Format your question below</h3><form>Question: <input type="text" name="question" /><br>Choice 1: <input type="text" name="choice1" /><br>Choice 2: <input type="text" name="choice2" /><br>Choice 3: <input type="text" name="choice3" /><br>Choice 4: <input type="text" name="choice4" /><br><button type="button" id="submit-question">Add Question</button></form></div>
 		</div>
 	</div>
 	<div id="staging">
@@ -86,20 +94,30 @@ $('#submit-video').click(function() {
 
 	// create a div for a new chapter
 	var ytLink = $('#youtube-link').val();
-	$('#work-area').append('<div class="chapter"><iframe width="600" height="400" src="' + ytLink + '"></div>');
+	// $('#work-area').append('<div class="chapter"><iframe width="600" height="400" src="' + ytLink + '"></div>');
+
+	addVideo(storyboard,ytLink);
+	storeStoryboard(storyboard);
 });
 
 $('#submit-question').click(function() {
-	console.log("test");
-	var question = $("input[name$='question'").val();
-	var choice1 = $("input[name$='choice1'").val();
-	var choice2 = $("input[name$='choice2'").val();
-	var choice3 = $("input[name$='choice3'").val();
-	var choice4 = $("input[name$='choice4'").val();
+	var questionText = $("input[name$='question'").val();
+	var question = createQuestion(storyboard,questionText);
 
-	// $('#question-setup').remove();
-	// $('#right').append('<div id="question"><h3>' + question + '</div>');
+	var choice1Text = $("input[name$='choice1'").val();
+	addAnswerToQuestion(question,choice1Text,'http://google.com');
 
+	var choice2Text = $("input[name$='choice2'").val();
+	addAnswerToQuestion(question,choice2Text,'http://google.com');
+
+	var choice3Text = $("input[name$='choice3'").val();
+	addAnswerToQuestion(question,choice3Text,'http://google.com');
+
+	var choice4Text = $("input[name$='choice4'").val();
+	addAnswerToQuestion(question,choice4Text,'http://google.com');
+
+	addQuestion(storyboard,question);
+	storeStoryboard(storyboard);
 });
 
 </script>
