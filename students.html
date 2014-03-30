@@ -1,16 +1,89 @@
 <html>
 <head> 
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
   <script src="http://code.jquery.com/jquery-2.1.0.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+
   <script src="storyboardLibrary.js"></script>
   <script>
   var storyboard = loadStoryboard();
   var videoLink = getVideoFromStoryboard(storyboard,0);
-  console.log(videoLink);
+
+  var question = getQuestionFromStoryboard(storyboard,0);
+  var questionText = getQuestionTextFromQuestion(question);
+
+  var answers = getAnswersFromQuestion(question);
+  var answer1 = getAnswerTextFromAnswer(answers[0]);
+  var answer2 = getAnswerTextFromAnswer(answers[1]);
+  var answer3 = getAnswerTextFromAnswer(answers[2]);
+  var answer4 = getAnswerTextFromAnswer(answers[3]);
+
   </script>
+
+
+
+
+  <meta charset="utf-8">
+  <title>jQuery UI Dialog - Modal form</title>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+  <style>
+    body { font-size: 62.5%; }
+    label, input { display:block; }
+    input.text { margin-bottom:12px; width:95%; padding: .4em; }
+    fieldset { padding:0; border:0; margin-top:25px; }
+    h1 { font-size: 1.2em; margin: .6em 0; }
+    .ui-dialog .ui-state-error { padding: .3em; }
+    .validateTips { border: 1px solid transparent; padding: 0.3em; }
+  </style>
+  <script>
+  $(function() {
+    var name = $( "#name" ),
+      email = $( "#email" ),
+      password = $( "#password" ),
+      allFields = $( [] ).add( name ).add( email ).add( password ),
+      tips = $( ".validateTips" );
+ 
+    $( "#dialog-form" ).dialog({
+      autoOpen: false,
+      height: 300,
+      width: 350,
+      modal: true,
+      buttons: {
+        Cancel: function() {
+          $( this ).dialog( "close" );
+        }
+      },
+      close: function() {
+        allFields.val( "" ).removeClass( "ui-state-error" );
+      }
+    });
+ 
+    $( "#create-user" )
+      .button()
+      .click(function() {
+        $( "#dialog-form" ).dialog( "open" );
+      });
+  });
+  </script>
+
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+  <script>
+  $(function() {
+    $( "#radio" ).buttonset();
+  });
+  </script>
+
 
 </head>
 
 <body>
+
 <div id="ytplayer"></div>
 
 <script>
@@ -30,6 +103,50 @@
       videoId: getVideoFromStoryboard(storyboard,0),
     });
   }
+
+  var currentValue = 0;
+  function handleClick(myRadio) {
+    //alert('Old value: ' + currentValue);
+    //alert('New value: ' + myRadio);
+    currentValue = myRadio;
+    $( this ).dialog( "close" );
+        $( this ).dialog( "close" );
+
+}
+
+
+
 </script>
+
+<div id="dialog-form" title="Create new user">
+  <p class="validateTips">"questionText"</p>
+
+  <form>
+  <div id="radio">
+    <input type="radio" id="radio1" name="radio1" onchange="handleClick(0);"><label for="radio1">Choice 1</label>
+    <input type="radio" id="radio2" name="radio2" onchange="handleClick(1);"><label for="radio2">Choice 2</label>
+    <input type="radio" id="radio3" name="radio3" onchange="handleClick(2);"><label for="radio3">Choice 3</label>
+    <input type="radio" id="radio4" name="radio4" onchange="handleClick(3);"><label for="radio4">Choice 4</label>
+  </div>
+</form>
+</div>
+<button id="create-user">Create new user</button>
+
+
+
+<script>
+$(".validateTips").html(questionText);
+
+$("label[for='radio1']").html(answer1);
+$("label[for='radio2']").html(answer2);
+$("label[for='radio3']").html(answer3);
+$("label[for='radio4']").html(answer4);
+
+
+</script>
+ 
+ 
+
+
 </body>
 </html>
