@@ -8,13 +8,13 @@
 <script>
 $(function() {
 	$("#add-video").draggable({
-		scope: "storyboard",
+		scope: "left",
 		revert: true,
 		revertDuration: 0,
 	});
 	$("#add-video").css('cursor', 'move');
-	$("#storyboard").droppable({
-		scope: "storyboard",
+	$("#left").droppable({
+		scope: "left",
 		over: function(event, ui){
 			$( this ).addClass("drag-over");
 		}, 
@@ -27,13 +27,13 @@ $(function() {
 		}
 	});
 	$("#add-question").draggable({
-		scope: "storyboard",
+		scope: "right",
 		revert: true,
 		revertDuration: 0
 	});
 	$("#add-question").css('cursor', 'move');
-	$("#storyboard").droppable({
-		scope: "storyboard",
+	$("#right").droppable({
+		scope: "right",
 		over: function(event, ui){
 			$( this ).addClass("drag-over");
 		},
@@ -52,6 +52,10 @@ $(function() {
 <body>
 <div id="storyboard">
 	<div id="work-area">
+		<div id="left">
+		</div>
+		<div id="right">
+		</div>
 	</div>
 	<div id="staging">
 		<div id="staging-video">
