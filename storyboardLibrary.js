@@ -19,8 +19,8 @@ function addChapter(storyboard) {
 }
 
 function updateDisplay(storyboard) {
-	var element = document.getElementById("TestName");
-	element.innerHTML = JSON.stringify(storyboard);
+	//var element = document.getElementById("TestName");
+	//element.innerHTML = JSON.stringify(storyboard);
 }
 
 
@@ -65,8 +65,6 @@ function storeStoryboard(storyboard) {
 
 	var retrievedObject = localStorage.getItem('gameStorage');
 	var parsedObject = JSON.parse(retrievedObject);
-
-	debugger;
 
 	updateDisplay(storyboard);
 

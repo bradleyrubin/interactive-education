@@ -87,12 +87,12 @@
 <div id="dialog-form" title="Create new user">
   <p class="validateTips">"questionText"</p>
 
-  <form>
+  <form id="radioName">
   <div id="radio">
-    <input type="radio" id="radio1" name="radio1" ><label for="radio1">Choice 1</label>
-    <input type="radio" id="radio2" name="radio2" ><label for="radio2">Choice 2</label>
-    <input type="radio" id="radio3" name="radio3" ><label for="radio3">Choice 3</label>
-    <input type="radio" id="radio4" name="radio4" ><label for="radio4">Choice 4</label>
+    <input type="radio" id="radio1" name="radio1" tag=0 change="rad1" ><label for="radio1">Choice 1</label>
+    <input type="radio" id="radio2" name="radio2" tag=1 change="rad2"><label for="radio2">Choice 2</label>
+    <input type="radio" id="radio3" name="radio3" tag=2 change="rad3"><label for="radio3">Choice 3</label>
+    <input type="radio" id="radio4" name="radio4" tag=3 change="rad4" ><label for="radio4">Choice 4</label>
   </div>
 </form>
 </div>
@@ -114,24 +114,33 @@
       width: '640',
       videoId: 'tmNXKqeUtJM',//getVideoFromStoryboard(storyboard,0),
     });
+
+    player.addEventListener('onStateChange', onPlayerStateChange);
   }
 
   var currentValue = 0;
-  function handleClick(myRadio) {
+
+function rad1() { debugger; handleClick(0); }
+function rad2() { handleClick(1); }
+function rad3() { handleClick(2); }
+function rad4() { handleClick(3); }
+
+function handleClick(myRadio) {
     //alert('Old value: ' + currentValue);
-    alert('New value: ' + myRadio);
     currentValue = myRadio;
-    $( this ).dialog( "close" );
-    $( this ).dialog( "close" );
+    //$( this ).dialog( "close" );
+    //$( this ).dialog( "close" );
+
+    //Todo, figure out if correct
+    var nextPageLink = getAnswerLinkFromAnswer(answers[myRadio]);
+    alert('next page link:' + nextPageLink);
+    window.location.href = nextPageLink;
+
+
+
 
 }
 
-
-
-</script>
-
-
-<script>
 
 $(function () {
   $(".validateTips").html(questionText);
@@ -143,10 +152,23 @@ $(function () {
     }
   });
 
-  $("#radio input[type=radio]").on("change", function () {
+  /*$("#radio input[type=radio]").on("change", function () {
     
-    $( "#dialog-form" ).dialog( "close" );
+    if ($("#radio input[name=radio]:checked").val()) {
+        alert("sosme");
+
+    }
+
+    currentValue = $("#radio").is(":checked");
+    var nextPageLink = getAnswerLinkFromAnswer(answers[currentValue]);
+    alert('next page link:' + nextPageLink);
+    window.location.href = nextPageLink;
+
+   $( "#dialog-form" ).dialog( "close" );
+
+
   });
+*/
 
 });
 
@@ -159,17 +181,28 @@ var atts = {
     id: "myytplayer"
 };
 
+</script>
+<script type="text/javascript" language="javascript">
 
-onYouTubePlayerReady = function (playerId) {
-    alert("everything is awesome!");
-    ytplayer = document.getElementById("myytplayer");
+//function onYouTubePlayerReady(playerid) {
+ //   alert("everything is awesomer!");
+  //  ytp = document.getElementById('ytplayer');
+  //  ytp.mute();
+//};
+
+
+window.onYouTubePlayerReady = function(playerId) {
+    ytplayer = document.getElementById("ytplayer");
     ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
+
 };
 
+</script>
+<script>
 onPlayerStateChange = function (state) {
-  alert("oy chips ahoy");
-    if (state === 0) {
-        alert("It is ended");
+    if (state.data === 0) {
+        //alert("It is ended");
+        $( "#dialog-form" ).dialog( "open" );
     }
 }
 
