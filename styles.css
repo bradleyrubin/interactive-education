@@ -1,8 +1,7 @@
 body {
-	background-color: rgb();
-
+	background-color: rgb(150,128,78);
+	font-family: Myriad Pro, sans-serif;
 }
-
 
 #storyboard {
 	width: 1000px;
@@ -70,8 +69,17 @@ body {
 #wrapper h1 {
 	float: left;
 	margin-left: 375px;
+	color: rgb(46,49,146);
 }
 
+#header {
+	margin-top: -50px;
+	margin-bottom: 50px;
+}
 
+#header img {
+	display: block;
+	margin: auto;
+}
 
 
