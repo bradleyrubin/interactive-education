@@ -1,17 +1,102 @@
 <html>
 <head> 
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
   <script src="http://code.jquery.com/jquery-2.1.0.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+
   <script src="storyboardLibrary.js"></script>
   <script>
   var storyboard = loadStoryboard();
-  var videoLink = getVideoFromStoryboard(storyboard,0);
-  console.log(videoLink);
+  var videoLink =  'tmNXKqeUtJM';//getVideoFromStoryboard(storyboard,0);
+
+  var question = getQuestionFromStoryboard(storyboard,0);
+  var questionText = getQuestionTextFromQuestion(question);
+
+  var answers = getAnswersFromQuestion(question);
+
   </script>
+
+
+
+
+  <meta charset="utf-8">
+  <title>jQuery UI Dialog - Modal form</title>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+  <style>
+    body { font-size: 62.5%; }
+    label, input { display:block; }
+    input.text { margin-bottom:12px; width:95%; padding: .4em; }
+    fieldset { padding:0; border:0; margin-top:25px; }
+    h1 { font-size: 1.2em; margin: .6em 0; }
+    .ui-dialog .ui-state-error { padding: .3em; }
+    .validateTips { border: 1px solid transparent; padding: 0.3em; }
+  </style>
+  <script>
+  $(function() {
+    var name = $( "#name" ),
+      email = $( "#email" ),
+      password = $( "#password" ),
+      allFields = $( [] ).add( name ).add( email ).add( password ),
+      tips = $( ".validateTips" );
+ 
+    $( "#dialog-form" ).dialog({
+      autoOpen: false,
+      height: 300,
+      width: 350,
+      modal: true,
+      buttons: {
+        Cancel: function() {
+          $( this ).dialog( "close" );
+        }
+      },
+      close: function() {
+        allFields.val( "" ).removeClass( "ui-state-error" );
+      }
+    });
+ 
+    $( "#create-user" )
+      .button()
+      .click(function() {
+        $( "#dialog-form" ).dialog( "open" );
+      });
+  });
+  </script>
+
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+  <script>
+  $(function() {
+    $( "#radio" ).buttonset();
+  });
+  </script>
+
 
 </head>
 
 <body>
+
 <div id="ytplayer"></div>
+
+
+
+<div id="dialog-form" title="Create new user">
+  <p class="validateTips">"questionText"</p>
+
+  <form id="radioName">
+  <div id="radio">
+    <input type="radio" id="radio1" name="radio1" tag=0 change="rad1" ><label for="radio1">Choice 1</label>
+    <input type="radio" id="radio2" name="radio2" tag=1 change="rad2"><label for="radio2">Choice 2</label>
+    <input type="radio" id="radio3" name="radio3" tag=2 change="rad3"><label for="radio3">Choice 3</label>
+    <input type="radio" id="radio4" name="radio4" tag=3 change="rad4" ><label for="radio4">Choice 4</label>
+  </div>
+</form>
+</div>
+<button id="create-user">Create new user</button>
 
 <script>
   // Load the IFrame Player API code asynchronously.
@@ -27,9 +112,104 @@
     player = new YT.Player('ytplayer', {
       height: '390',
       width: '640',
-      videoId: getVideoFromStoryboard(storyboard,0),
+      videoId: 'tmNXKqeUtJM',//getVideoFromStoryboard(storyboard,0),
     });
+
+    player.addEventListener('onStateChange', onPlayerStateChange);
   }
+
+  var currentValue = 0;
+
+function rad1() { debugger; handleClick(0); }
+function rad2() { handleClick(1); }
+function rad3() { handleClick(2); }
+function rad4() { handleClick(3); }
+
+function handleClick(myRadio) {
+    //alert('Old value: ' + currentValue);
+    currentValue = myRadio;
+    //$( this ).dialog( "close" );
+    //$( this ).dialog( "close" );
+
+    //Todo, figure out if correct
+    var nextPageLink = getAnswerLinkFromAnswer(answers[myRadio]);
+    alert('next page link:' + nextPageLink);
+    window.location.href = nextPageLink;
+
+
+
+
+}
+
+
+$(function () {
+  $(".validateTips").html(questionText);
+
+  $("#radio label").each(function (i) {
+    if(typeof answers === "array" || typeof answers === "object") {
+      var answer = getAnswerTextFromAnswer(answers[i]);
+      $(this).html(answer);
+    }
+  });
+
+  /*$("#radio input[type=radio]").on("change", function () {
+    
+    if ($("#radio input[name=radio]:checked").val()) {
+        alert("sosme");
+
+    }
+
+    currentValue = $("#radio").is(":checked");
+    var nextPageLink = getAnswerLinkFromAnswer(answers[currentValue]);
+    alert('next page link:' + nextPageLink);
+    window.location.href = nextPageLink;
+
+   $( "#dialog-form" ).dialog( "close" );
+
+
+  });
+*/
+
+});
+
+  
+
+var params = {
+    allowScriptAccess: "always"
+};
+var atts = {
+    id: "myytplayer"
+};
+
 </script>
+<script type="text/javascript" language="javascript">
+
+//function onYouTubePlayerReady(playerid) {
+ //   alert("everything is awesomer!");
+  //  ytp = document.getElementById('ytplayer');
+  //  ytp.mute();
+//};
+
+
+window.onYouTubePlayerReady = function(playerId) {
+    ytplayer = document.getElementById("ytplayer");
+    ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
+
+};
+
+</script>
+<script>
+onPlayerStateChange = function (state) {
+    if (state.data === 0) {
+        //alert("It is ended");
+        $( "#dialog-form" ).dialog( "open" );
+    }
+}
+
+</script>
+ 
+ 
+
+
 </body>
 </html>

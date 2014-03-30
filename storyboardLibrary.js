@@ -19,8 +19,13 @@ function addChapter(storyboard) {
 }
 
 function updateDisplay(storyboard) {
+<<<<<<< HEAD
 	var element = document.getElementById("TestName");
 	// element.innerHTML = JSON.stringify(storyboard);
+=======
+	//var element = document.getElementById("TestName");
+	//element.innerHTML = JSON.stringify(storyboard);
+>>>>>>> 61be2cd56c8f85363371004e28b92f1e0d3628ac
 }
 
 
