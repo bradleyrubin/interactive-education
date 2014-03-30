@@ -1,0 +1,30 @@
+#storyboard {
+	width: 1000px;
+	height: 500px;
+	margin-left: auto;
+	margin-right: auto;
+	border: solid 1px #000000;
+	position: relative;
+}
+
+#staging {
+	position: absolute;
+	bottom: 0;
+}
+
+#toolbox {
+	width: 1000px;
+	height:150px;
+	margin-left: auto;
+	margin-right: auto;
+	border: solid 1px #000000;
+}
+
+#staging-video, #staging-question
+{
+	display: none;
+}
+
+.drag-over {
+	background-color: yellow;
+}
