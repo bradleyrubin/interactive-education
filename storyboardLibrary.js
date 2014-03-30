@@ -20,7 +20,7 @@ function addChapter(storyboard) {
 
 function updateDisplay(storyboard) {
 	var element = document.getElementById("TestName");
-	element.innerHTML = JSON.stringify(storyboard);
+	// element.innerHTML = JSON.stringify(storyboard);
 }
 
 

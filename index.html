@@ -55,13 +55,18 @@ $('#submit-video').click(function() {
 
 	// create a div for a new chapter
 	var ytLink = $('#youtube-link').val();
-	// $('#work-area').append('<div class="chapter"><iframe width="600" height="400" src="' + ytLink + '"></div>');
+
+	var num = getNumberOfChapters();
+	$('#storyboard').append('<div class="chapter" id="chapter' + num + '"><iframe width="300" height="200" src="' + ytLink + '"></div>');
+	$('#chapter' + num).css('left', 400*num);
+
 	var ytID = ytLink.match(/\?v=([^&]*)/)[1];
 	addVideo(storyboard,ytID);
 	storeStoryboard(storyboard);
 });
 
 $('#submit-question').click(function() {
+	$('#question-setup').hide();
 	var questionText = $("input[name$='question'").val();
 	var question = createQuestion(storyboard,questionText);
 
@@ -79,6 +84,10 @@ $('#submit-question').click(function() {
 
 	addQuestion(storyboard,question);
 	storeStoryboard(storyboard);
+
+	var num = getNumberOfChapters();
+	$('#storyboard').append('<div class="chapter" id="chapter' + num + '"><h4>' + questionText + '</h4><p>' + choice1Text + '</p><p>' + choice2Text + '</p><p>' + choice3Text + '</p><p>' + choice4Text + '</p></div>');
+	$('#chapter' + num).css('left', 400*num);
 });
 
 var storyboard = initialize();
@@ -141,6 +150,15 @@ $(function() {
 		}
 	});
 });
+
+function getNumberOfChapters()
+{
+	numChapters = $('div.chapter').length;
+	return numChapters;
+}
+
+
+
 });
 </script>
 
