@@ -45,7 +45,6 @@ $(function() {
 		drop: function(event, ui){
 			$( this ).removeClass("drag-over");
 			$( this ).append('<div id="question-setup"><h3>Format your question below</h3><form>Question: <input type="text" name="question" /><br>Choice 1: <input type="text" name="choice1" /><br>Choice 2: <input type="text" name="choice2" /><br>Choice 3: <input type="text" name="choice3" /><br>Choice 4: <input type="text" name="choice4" /><br><button type="button" id="submit-question">Add Question</button></form></div>');
-			$('#staging-question').show();
 		}
 	});
 
@@ -58,7 +57,6 @@ $(function() {
 		<div id="left">
 		</div>
 		<div id="right">
-
 		</div>
 	</div>
 	<div id="staging">
@@ -92,15 +90,17 @@ $('#submit-video').click(function() {
 });
 
 $('#submit-question').click(function() {
-	$('#staging').hide();
-
+	console.log("test");
 	var question = $("input[name$='question'").val();
 	var choice1 = $("input[name$='choice1'").val();
 	var choice2 = $("input[name$='choice2'").val();
 	var choice3 = $("input[name$='choice3'").val();
 	var choice4 = $("input[name$='choice4'").val();
-});
 
+	// $('#question-setup').remove();
+	// $('#right').append('<div id="question"><h3>' + question + '</div>');
+
+});
 
 </script>
 </body>
