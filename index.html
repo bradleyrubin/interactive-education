@@ -7,13 +7,13 @@
 <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <script>
 $(function() {
-	$("#add-video").draggable({
+	$('#add-video').draggable({
 		scope: "left",
 		revert: true,
 		revertDuration: 0,
 	});
-	$("#add-video").css('cursor', 'move');
-	$("#left").droppable({
+	$('#add-video').css('cursor', 'move');
+	$('#left').droppable({
 		tolerance: "touch",
 		scope: "left",
 		over: function(event, ui){
@@ -27,13 +27,13 @@ $(function() {
 			$('#staging-video').show();
 		}
 	});
-	$("#add-question").draggable({
+	$('#add-question').draggable({
 		scope: "right",
 		revert: true,
 		revertDuration: 0
 	});
-	$("#add-question").css('cursor', 'move');
-	$("#right").droppable({
+	$('#add-question').css('cursor', 'move');
+	$('#right').droppable({
 		tolerance: "touch",
 		scope: "right",
 		over: function(event, ui){
@@ -44,6 +44,7 @@ $(function() {
 		},
 		drop: function(event, ui){
 			$( this ).removeClass("drag-over");
+			$( this ).append('<div id="question-setup"><h3>Format your question below</h3><form>Question: <input type="text" name="question" /><br>Choice 1: <input type="text" name="choice1" /><br>Choice 2: <input type="text" name="choice2" /><br>Choice 3: <input type="text" name="choice3" /><br>Choice 4: <input type="text" name="choice4" /><br><button type="button" id="submit-question">Add Question</button></form></div>');
 			$('#staging-question').show();
 		}
 	});
@@ -57,6 +58,7 @@ $(function() {
 		<div id="left">
 		</div>
 		<div id="right">
+
 		</div>
 	</div>
 	<div id="staging">
@@ -64,16 +66,6 @@ $(function() {
 			<form>
 				YouTube link: <input type="text" name="youtube-link" id="youtube-link" />
 				<button type="button" id="submit-video">Add</button>
-			</form>
-		</div>
-		<div id="staging-question">
-			<form>
-				Question: <input type="text" name="question" />
-				Choice 1: <input type="text" name="choice1" />
-				Choice 2: <input type="text" name="choice2" />
-				Choice 3: <input type="text" name="choice3" />
-				Choice 4: <input type="text" name="choice4" />
-				<button type="button" id="submit-question">Add</button>
 			</form>
 		</div>
 	</div>
