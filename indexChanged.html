@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="styles.css">
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+<script src="http://code.jquery.com/jquery-2.1.0.js"></script>
+<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script>
+$(function() {
+	$("#add-video").draggable({
+		scope: "left",
+		revert: true,
+		revertDuration: 0,
+	});
+	$("#add-video").css('cursor', 'move');
+	$("#left").droppable({
+		scope: "left",
+		over: function(event, ui){
+			$( this ).addClass("drag-over");
+		}, 
+		out: function(event, ui){
+			$( this ).removeClass("drag-over");
+		},
+		drop: function(event, ui){
+			$( this ).removeClass("drag-over");
+			$('#staging-video').show();
+		}
+	});
+	$("#add-question").draggable({
+		scope: "right",
+		revert: true,
+		revertDuration: 0
+	});
+	$("#add-question").css('cursor', 'move');
+	$("#right").droppable({
+		scope: "right",
+		over: function(event, ui){
+			$( this ).addClass("drag-over");
+		},
+		out: function(event, ui){
+			$( this ).removeClass("drag-over");
+		},
+		drop: function(event, ui){
+			$( this ).removeClass("drag-over");
+			$('#staging-question').show();
+		}
+	});
+
+});
+</script>
+</head>
+<body>
+<div id="storyboard">
+	<div id="work-area">
+		<div id="left">
+		</div>
+		<div id="right">
+		</div>
+	</div>
+	<div id="staging">
+		<div id="staging-video">
+			<form>
+				YouTube link: <input type="text" name="youtube-link" id="youtube-link" />
+				<button type="button" id="submit-video">Add</button>
+			</form>
+		</div>
+		<div id="staging-question">
+			<form>
+				Question: <input type="text" name="question" />
+				Choice 1: <input type="text" name="choice1" />
+				Choice 2: <input type="text" name="choice2" />
+				Choice 3: <input type="text" name="choice3" />
+				Choice 4: <input type="text" name="choice4" />
+				<button type="button" id="submit-question">Add</button>
+			</form>
+		</div>
+	</div>
+</div>
+<div id="toolbox">
+	<div id="add-video" class="add-content">
+		<h1 id="add-drag">Add Video</h1>
+	</div>
+
+	<div id="add-question" class="add-content">
+		<h1 id="add-question">Add Question</button>
+	</div>
+</div>
+
+
+<script>
+$('#submit-video').click(function() {
+	// hide the staging area
+	$('#staging').hide();
+
+	// create a div for a new chapter
+	var ytLink = $('#youtube-link').val();
+	$('#work-area').append('<div class="chapter"><iframe width="600" height="400" src="' + ytLink + '"></div>');
+
+	addVideo(storyboard,ytLink);
+});
+
+$('#submit-question').click(function() {
+	$('#staging').hide();
+
+	var questionText = $("input[name$='question'").val();
+	var storyboard = initialize();
+	addChapter(storyboard);
+	var question = createQuestion(storyboard,questionText);
+
+	var choice1Text = $("input[name$='choice1'").val();
+	addAnswerToQuestion(question,choice1Text,'http://google.com');
+
+	var choice2Text = $("input[name$='choice2'").val();
+	addAnswerToQuestion(question,choice1Text,'http://google.com');
+
+	var choice3Text = $("input[name$='choice3'").val();
+	addAnswerToQuestion(question,choice1Text,'http://google.com');
+
+	var choice4Text = $("input[name$='choice4'").val();
+	addAnswerToQuestion(question,choice1Text,'http://google.com');
+
+	addQuestion(storyboard,question);
+
+});
+
+
+</script>
+</body>
+</html>
